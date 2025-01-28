@@ -25,7 +25,7 @@ const repairerSchema = new Schema({
     repairerCertificate: String,
     repairerDegreeDescription: String
   }],
-  sellerExperience: [{
+  repairerExperience: [{
     repairerJobTitle: String,
     repairerJobType: String,
     repairerStartingDate: String,

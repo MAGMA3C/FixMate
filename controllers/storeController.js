@@ -19,7 +19,6 @@ module.exports.createStore = catchAsyncError(async (req, res, next) => {
     // BUSINESS INFO
 
     businessName,
-    storeAddress,
     logo,
     storePhone,
     storeEmail,
@@ -100,29 +99,38 @@ module.exports.createStore = catchAsyncError(async (req, res, next) => {
       repairerCnicFront: ownerCnicFront,
       repairerCnicBack: ownerCnicBack,
       repairerVerifiedCnic: ownerVerifiedCnic,
-      repairerJobTitle,
-      repairerJobType,
-      repairerCompanyName,
-      repairerStartingDate,
-      repairerEndingDate,
-      repairerJobLocation,
-      repairerExperienceDescription,
-      repairerDegree,
-      repairerInstitute,
-      repairerDegreeStartingDate,
-      repairerDegreeEndingDate,
-      repairerCertificate,
-      repairerDegreeDescription,
+      repairerQualification: [
+        {
+          repairerDegree,
+          repairerInstitute,
+          repairerDegreeStartingDate,
+          repairerDegreeEndingDate,
+          repairerCertificate,
+          repairerDegreeDescription,
+        },
+      ],
+      repairerExperience: [
+        {
+          repairerJobTitle,
+          repairerJobType,
+          repairerCompanyName,
+          repairerStartingDate,
+          repairerEndingDate,
+          repairerJobLocation,
+          repairerExperienceDescription,
+        },
+      ],
     });
 
     const branch = await BRANCHMODEL.create({
       branchName: businessName,
-      location: storeAddress,
+      location: fullAddress,
+      lat,
+      long,
     });
 
     const store = await STOREMODEL.create({
       businessName,
-      storeAddress,
       logo,
       storePhone,
       storeEmail,

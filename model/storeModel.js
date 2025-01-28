@@ -12,8 +12,6 @@ const StorePlan = {
 const storeSchema = new Schema({
   businessName: { type: String, required: true },
 
-  storeAddress: { type: String, required: true },
-
   logo: { type: String, required: true },
 
   storePhone: { type: String, required: true },

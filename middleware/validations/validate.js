@@ -35,13 +35,13 @@ module.exports = [
 
   // EXPERIENCE
 
-  body("sellerStartingDate")
+  body("repairerStartingDate")
     .isDate({ format: "YYYY-MM-DD", strictMode: true })
     .withMessage("Starting date must be in the format YYYY-MM-DD")
     .notEmpty()
     .withMessage("Starting date is required"),
 
-  body("sellerEndingDate")
+  body("repairerEndingDate")
     .isDate({ format: "YYYY-MM-DD", strictMode: true })
     .withMessage("Ending date must be in the format YYYY-MM-DD")
     .notEmpty()
@@ -56,13 +56,13 @@ module.exports = [
 
   //EDUCATION
 
-  body("sellerDegreeStartingDate")
+  body("repairerDegreeStartingDate")
     .isDate({ format: "YYYY-MM-DD", strictMode: true })
     .withMessage("Starting date must be in the format YYYY-MM-DD")
     .notEmpty()
     .withMessage("Starting date is required"),
 
-  body("sellerDegreeEndingDate")
+  body("repairerDegreeEndingDate")
     .isDate({ format: "YYYY-MM-DD", strictMode: true })
     .withMessage("Ending date must be in the format YYYY-MM-DD")
     .notEmpty()
