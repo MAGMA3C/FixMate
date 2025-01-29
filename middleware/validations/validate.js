@@ -59,6 +59,31 @@ module.exports = [
       return true;
     }),
 
+  // Validate each field in each object in the experience array
+  body("experience.*.repairerJobTitle")
+    .notEmpty()
+    .withMessage("Job Title is required"),
+  body("experience.*.repairerJobType")
+    .notEmpty()
+    .withMessage("Job Type is required"),
+  body("experience.*.repairerCompanyName")
+    .notEmpty()
+    .withMessage("Company Name is required"),
+  body("experience.*.repairerStartingDate")
+    .isDate()
+    .withMessage("Starting Date must be a valid date in the format YYYY-MM-DD"),
+  body("experience.*.repairerEndingDate")
+    .isDate()
+    .withMessage("Ending Date must be a valid date in the format YYYY-MM-DD"),
+  body("experience.*.repairerJobLocation")
+    .notEmpty()
+    .withMessage("Job Location is required"),
+  body("experience.*.repairerExperienceDescription")
+    .notEmpty()
+    .withMessage("Experience description is required"),
+
+
+
   //EDUCATION
 
   // Validation for the education array
@@ -85,4 +110,25 @@ module.exports = [
       });
       return true;
     }),
+
+  // Validate the structure of each individual education item in the array
+  body("education.*.repairerDegree")
+    .notEmpty()
+    .withMessage("Degree is required"),
+  body("education.*.repairerInstitute")
+    .notEmpty()
+    .withMessage("Institute is required"),
+  body("education.*.repairerDegreeStartingDate")
+    .isDate()
+    .withMessage("Starting Date must be a valid date in the format YYYY-MM-DD"),
+  body("education.*.repairerDegreeEndingDate")
+    .isDate()
+    .withMessage("Ending Date must be a valid date in the format YYYY-MM-DD"),
+  body("education.*.repairerCertificate")
+    .notEmpty()
+    .withMessage("Certificate is required"),
+  body("education.*.repairerDegreeDescription")
+    .notEmpty()
+    .withMessage("Degree description is required"),
+  
 ];
