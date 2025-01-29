@@ -49,22 +49,26 @@ module.exports.createStore = catchAsyncError(async (req, res, next) => {
 
     // EXPERIENCE
 
-    repairerJobTitle,
-    repairerJobType,
-    repairerCompanyName,
-    repairerStartingDate,
-    repairerEndingDate,
-    repairerJobLocation,
-    repairerExperienceDescription,
+    // repairerJobTitle,
+    // repairerJobType,
+    // repairerCompanyName,
+    // repairerStartingDate,
+    // repairerEndingDate,
+    // repairerJobLocation,
+    // repairerExperienceDescription,
+
+    experience,
 
     //EDUCATION
 
-    repairerDegree,
-    repairerInstitute,
-    repairerDegreeStartingDate,
-    repairerDegreeEndingDate,
-    repairerCertificate,
-    repairerDegreeDescription,
+    // repairerDegree,
+    // repairerInstitute,
+    // repairerDegreeStartingDate,
+    // repairerDegreeEndingDate,
+    // repairerCertificate,
+    // repairerDegreeDescription,
+
+    education
   } = req.body;
 
   const errors = validationResult(req);
@@ -99,27 +103,8 @@ module.exports.createStore = catchAsyncError(async (req, res, next) => {
       repairerCnicFront: ownerCnicFront,
       repairerCnicBack: ownerCnicBack,
       repairerVerifiedCnic: ownerVerifiedCnic,
-      repairerQualification: [
-        {
-          repairerDegree,
-          repairerInstitute,
-          repairerDegreeStartingDate,
-          repairerDegreeEndingDate,
-          repairerCertificate,
-          repairerDegreeDescription,
-        },
-      ],
-      repairerExperience: [
-        {
-          repairerJobTitle,
-          repairerJobType,
-          repairerCompanyName,
-          repairerStartingDate,
-          repairerEndingDate,
-          repairerJobLocation,
-          repairerExperienceDescription,
-        },
-      ],
+      repairerQualification: education,
+      repairerExperience: experience
     });
 
     const branch = await BRANCHMODEL.create({

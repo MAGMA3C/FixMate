@@ -1,7 +1,6 @@
 const { body } = require("express-validator");
 
 module.exports = [
-
   body("storePhone")
     .matches(/^\+([1-9]{1,4})\d{1,14}$/)
     .withMessage(
@@ -28,50 +27,62 @@ module.exports = [
 
   body("ownerEmail").isEmail().withMessage("Email should be valid"),
 
-  body("ownerCnicNumber").matches(/^\d{5}-\d{7}-\d{1}$/)
+  body("ownerCnicNumber")
+    .matches(/^\d{5}-\d{7}-\d{1}$/)
     .withMessage("CNIC must follow the format XXXXX-XXXXXXX-X"),
 
   // SELLER INFO
 
   // EXPERIENCE
 
-  body("repairerStartingDate")
-    .isDate({ format: "YYYY-MM-DD", strictMode: true })
-    .withMessage("Starting date must be in the format YYYY-MM-DD")
-    .notEmpty()
-    .withMessage("Starting date is required"),
-
-  body("repairerEndingDate")
-    .isDate({ format: "YYYY-MM-DD", strictMode: true })
-    .withMessage("Ending date must be in the format YYYY-MM-DD")
-    .notEmpty()
-    .withMessage("Ending date is required")
-    .custom((value, { req }) => {
-      // Custom validation to ensure ending date is not before starting date
-      if (new Date(value) < new Date(req.body.sellerStartingDate)) {
-        throw new Error("Ending date cannot be earlier than starting date");
-      }
+  body("experience")
+    .isArray()
+    .withMessage("Experience should be an array")
+    .custom((value) => {
+      // Custom validation for each item in the experience array
+      value.forEach((experience, index) => {
+        // Validate required fields for each job experience
+        if (
+          !experience.repairerJobTitle ||
+          !experience.repairerJobType ||
+          !experience.repairerCompanyName ||
+          !experience.repairerStartingDate ||
+          !experience.repairerEndingDate ||
+          !experience.repairerJobLocation ||
+          !experience.repairerExperienceDescription
+        ) {
+          throw new Error(
+            `Experience entry at index ${index} is missing required fields`
+          );
+        }
+      });
       return true;
     }),
 
   //EDUCATION
 
-  body("repairerDegreeStartingDate")
-    .isDate({ format: "YYYY-MM-DD", strictMode: true })
-    .withMessage("Starting date must be in the format YYYY-MM-DD")
-    .notEmpty()
-    .withMessage("Starting date is required"),
+  // Validation for the education array
 
-  body("repairerDegreeEndingDate")
-    .isDate({ format: "YYYY-MM-DD", strictMode: true })
-    .withMessage("Ending date must be in the format YYYY-MM-DD")
-    .notEmpty()
-    .withMessage("Ending date is required")
-    .custom((value, { req }) => {
-      // Custom validation to ensure ending date is not before starting date
-      if (new Date(value) < new Date(req.body.sellerDegreeEndingDate)) {
-        throw new Error("Ending date cannot be earlier than starting date");
-      }
+  body("education")
+    .isArray()
+    .withMessage("Education should be an array")
+    .custom((value) => {
+      // Custom validation for each item in the education array
+      value.forEach((education, index) => {
+        // Validate each object in the array
+        if (
+          !education.repairerDegree ||
+          !education.repairerInstitute ||
+          !education.repairerDegreeStartingDate ||
+          !education.repairerDegreeEndingDate ||
+          !education.repairerCertificate ||
+          !education.repairerDegreeDescription
+        ) {
+          throw new Error(
+            `Education entry at index ${index} is missing required fields`
+          );
+        }
+      });
       return true;
     }),
 ];
